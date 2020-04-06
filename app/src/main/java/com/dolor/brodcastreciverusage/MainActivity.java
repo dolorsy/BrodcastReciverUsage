@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity{
-    LowBattery lowBattary;
+    DynamicReciver dynamicReciver;
     IntentFilter intentFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,25 +21,30 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
-        lowBattary = new LowBattery();
-
-
+        dynamicReciver = new DynamicReciver();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(lowBattary,intentFilter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(),"AToas",Toast.LENGTH_SHORT).show();
+        registerReceiver(dynamicReciver,intentFilter);
+
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(dynamicReciver);
     }
 
-    private class LowBattery extends BroadcastReceiver{
+    private class DynamicReciver extends BroadcastReceiver{
 
 
         @Override
