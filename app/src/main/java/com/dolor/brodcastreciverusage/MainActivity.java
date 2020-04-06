@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity{
-    DynamicReciver dynamicReciver;
+    DynamicReceiver DynamicReceiver;
     IntentFilter intentFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
-        dynamicReciver = new DynamicReciver();
+        DynamicReceiver = new DynamicReceiver();
 
     }
 
@@ -34,17 +34,17 @@ public class MainActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         Toast.makeText(getApplicationContext(),"AToas",Toast.LENGTH_SHORT).show();
-        registerReceiver(dynamicReciver,intentFilter);
+        registerReceiver(DynamicReceiver,intentFilter);
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(dynamicReciver);
+        unregisterReceiver(DynamicReceiver);
     }
 
-    private class DynamicReciver extends BroadcastReceiver{
+    private class DynamicReceiver extends BroadcastReceiver{
 
 
         @Override
